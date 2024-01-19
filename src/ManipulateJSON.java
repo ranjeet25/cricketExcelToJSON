@@ -33,11 +33,33 @@ public class ManipulateJSON {
 
 	}
 	
+	// ******* Useful for creating XML Document *******
+	
+	HashMap<String, String> matchInfoMap = new HashMap<>();
+	HashMap<String, String> team1Map = new HashMap<>();
+	HashMap<String, String> team2Map = new HashMap<>();
+	
+	public HashMap<String, String> matchInfoMap(){
+		return matchInfoMap;
+	}
+	
+	public HashMap<String, String> team1Map(){
+		return team1Map;
+	}
+	
+	public HashMap<String, String> team2Map(){
+		return team2Map;
+	}
+	
+	// ******* Ends *******
+	
+	
+	
 	
 	// ******** Handles MATCH Infos ********
 	public void handleMatchInfo() {
+		
 
-        
         String result = "Winner is"+ " " + matchInfo_sheet.getRow(19).getCell(2).toString() ;
         String toss_winner = matchInfo_sheet.getRow(11).getCell(2).toString();
 //		String batting_first_team = matchInfo_sheet.getRow(19).getCell(2).toString();
@@ -48,10 +70,15 @@ public class ManipulateJSON {
         matchDetails.put("batting_first_team", "Australia" );
         matchDetails.put("player_of_the_match", player_of_the_match );
         
+        // Useful to create XML document
+        matchInfoMap.put("result", result);
+        matchInfoMap.put("toss_winner", toss_winner);
+        matchInfoMap.put("batting_first_team", "Australia" );
+        matchInfoMap.put("player_of_the_match", player_of_the_match);
 
 	}
 	
-	
+
 	// ******** Handles BASIC team Infos ********
 	public void teamDetails() {
 		
@@ -63,6 +90,12 @@ public class ManipulateJSON {
 		
 		team1.put("name", team1name);
 		team2.put("name", team2name);
+		
+		// Useful to create XML document
+		team1Map.put("name", team1name);
+		team2Map.put("name", team2name);
+		
+		
 		
 	}
 	
@@ -90,6 +123,10 @@ public class ManipulateJSON {
 		team1.put("score", score1);
 		team2.put("score", score2);
 		
+		// Useful to create XML document
+		team1Map.put("score", score1+"");
+		team2Map.put("score", score2+"");
+		
 	}
 	
 	
@@ -116,6 +153,10 @@ public class ManipulateJSON {
 		team1.put("wicket", wickets1);
 		team2.put("wicket", wickets2);
 		
+		// Useful to create XML document
+		team1Map.put("wicket", wickets1+"");
+		team2Map.put("wicket", wickets2+"");
+		
 	}
 	
 	
@@ -141,12 +182,15 @@ public class ManipulateJSON {
 		
 		team1.put("over_played", overs_played1);
 		team2.put("over_played", overs_played2);
+		
+		team1Map.put("over_played", overs_played1+"");
+		team2Map.put("over_played", overs_played2+"");
 	}
 	
 	
 	
 	// *********** Calculate Details of Players of Team1 ie. Australia ***********
-	public void ausPlayers() {
+	public HashMap<String, JSONObject> ausPlayers() {
 		
 		HashMap<String, JSONObject> ausPlayerMap = new HashMap<String, JSONObject>();	
 
@@ -267,12 +311,14 @@ public class ManipulateJSON {
 			
 			ausPlayers.put(obj);
 		}
+		
+		return ausPlayerMap;
 
 	}
 	
 
 	// *********** Calculate Details of Players of Team2 ie. EngLand ***********
-	public void engPlayers() {
+	public HashMap<String, JSONObject> engPlayers() {
 		
 		HashMap<String, JSONObject> engPlayerMap = new HashMap<String, JSONObject>();	
 		Iterator<Row> rowIterator = matchInfo_sheet.iterator();
@@ -392,7 +438,8 @@ public class ManipulateJSON {
 			
 			engPlayers.put(obj);
 		}
-
+		
+		return engPlayerMap;
 	}
 		
 		
