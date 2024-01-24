@@ -190,10 +190,10 @@ public class ManipulateJSON {
 	
 	
 	// *********** Calculate Details of Players of Team1 ie. Australia ***********
-	public HashMap<String, JSONObject> ausPlayers() {
+	public LinkedHashMap<String, JSONObject> ausPlayers() {
 		
-		HashMap<String, JSONObject> ausPlayerMap = new HashMap<String, JSONObject>();	
-
+		LinkedHashMap<String, JSONObject> ausPlayerMap = new LinkedHashMap<String, JSONObject>();	
+		List<String> insertionOrder = new ArrayList<>();
 		
 		Iterator<Row> rowIterator = matchInfo_sheet.iterator();
 		rowIterator.next();
@@ -207,6 +207,7 @@ public class ManipulateJSON {
 			 if("player".equals(row.getCell(1).toString()) && "Australia".equals(row.getCell(2).toString())) {
 			
 			currentPlayer = row.getCell(3).toString();
+//			System.out.println(currentPlayer);
 			
 			JSONObject playerScoreCard = new JSONObject();
 			 
@@ -220,10 +221,13 @@ public class ManipulateJSON {
 	         playerScoreCard.put("over_bowled", 0.0);
 	         playerScoreCard.put("bowling_economy", 0.0);
 	         
-	         ausPlayerMap.put(currentPlayer,playerScoreCard );
+	         ausPlayerMap.put(currentPlayer,playerScoreCard);
+	         insertionOrder.add(currentPlayer);
 	         
 			 }
 		}
+		
+		
  		  
 		
  		  // MatchDetails Sheet
@@ -294,8 +298,12 @@ public class ManipulateJSON {
 			
 
 			ausPlayerMap.put(currentPlayer,currentBatObj);
+			
  
 		}
+		
+//		System.out.println(ausPlayerMap);
+//		System.out.println(insertionOrder);
 		
 		
 		JSONObject aus = matchDetails.getJSONObject("team1");
@@ -318,9 +326,9 @@ public class ManipulateJSON {
 	
 
 	// *********** Calculate Details of Players of Team2 ie. EngLand ***********
-	public HashMap<String, JSONObject> engPlayers() {
+	public LinkedHashMap<String, JSONObject> engPlayers() {
 		
-		HashMap<String, JSONObject> engPlayerMap = new HashMap<String, JSONObject>();	
+		LinkedHashMap<String, JSONObject> engPlayerMap = new LinkedHashMap<String, JSONObject>();	
 		Iterator<Row> rowIterator = matchInfo_sheet.iterator();
 		
 		rowIterator.next();

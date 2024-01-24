@@ -101,11 +101,7 @@ public class CreateXML {
 	    
 	    // Team 1 Element creation
 	    public static Element team1() {
-	    	
-	    	// Create object of ManipulateJSON
-	    	
 
-	        
 	        Element team1 = doc.createElement("team1");
 	        
 	        Element name = doc.createElement("name");
@@ -134,11 +130,7 @@ public class CreateXML {
 	    
 	 // Team 2 Element creation
 	    public static Element team2() {
-	    	
-	    	// Create object of ManipulateJSON
-	    	
-
-	        
+	  
 	        Element team2 = doc.createElement("team2");
 	        
 	        Element name = doc.createElement("name");
